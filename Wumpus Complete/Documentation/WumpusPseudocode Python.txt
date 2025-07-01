@@ -1,0 +1,67 @@
+BEGIN
+
+// Initialization
+Initialize Pygame
+Load images (bat, player, wumpus, arrow, dead wumpus)
+Initialize sounds (footsteps, jumpscare, ambient, breathing, shoot, wumpus death, blinded, wumpus move)
+Set screen dimensions and create display
+Define constants (UP, DOWN, LEFT, RIGHT, colors)
+Define cave map (adjacency list)
+Initialize global variables:
+    player_position
+    wumpus_position
+    bats_list
+    pits_list
+    arrows_list
+    number_of_arrows
+    game_over_flag
+    countdown_timer
+Initialize font
+
+// Game Setup
+Populate cave:
+    Randomly place player
+    Randomly place wumpus (avoiding player position)
+    Randomly place bats (avoiding player, wumpus, and other bats)
+    Randomly place pits (avoiding player, wumpus, bats, and other pits)
+    Randomly place arrows (avoiding player, wumpus, bats, and pits)
+Print game instructions
+Get input to start game
+
+// Main Game Loop
+WHILE game_over_flag == FALSE DO
+    Handle Pygame events:
+        Check for quit event
+        Check for arrow key presses:
+            If shift key is held, shoot arrow in corresponding direction
+            Otherwise, move player in corresponding direction (if valid move)
+    Update game state:
+        Move wumpus (if mobile and random condition met)
+        Check room:
+            If player is in same position as wumpus, game over
+            If player is in a pit, game over
+            If player is in a bat location, move player and bats randomly, play blinded sound
+            If player is in an arrow location, increment arrow count, play sound
+    Draw game elements:
+        Draw room background
+        Draw exits
+        Draw player
+        Draw bats (if present)
+        Draw wumpus (if present)
+        Draw text (position, arrows remaining, clues)
+    Update display
+    Check wumpus distance:
+        Play breathing sound if wumpus is nearby, stop otherwise
+    Update timer:
+        Calculate remaining time
+        If time runs out, game over
+    Draw timer on screen
+    Update display
+ENDWHILE
+
+// Game Over
+If game over due to time, print "You ran out of time!"
+If game over due to wumpus or pit, print appropriate message
+If game over due to winning, print "You Win!"
+Quit Pygame
+END
